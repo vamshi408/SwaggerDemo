@@ -25,7 +25,8 @@ namespace SwaggerDemo.Entity
         //To Do need to implement other interfaces
         public void Add(Users entity)
         {
-            throw new NotImplementedException();
+             _bVK_DB_Context.Add(entity);
+            _bVK_DB_Context.SaveChanges();
         }
 
         public void Delete(Users entity)
@@ -35,7 +36,8 @@ namespace SwaggerDemo.Entity
 
         public void Edit(Users entity)
         {
-            throw new NotImplementedException();
+            _bVK_DB_Context.Update(entity);
+            _bVK_DB_Context.SaveChanges();
         }
 
         public IQueryable<Users> FindBy(Expression<Func<Users, bool>> predicate)
@@ -44,9 +46,15 @@ namespace SwaggerDemo.Entity
         }
       
 
-        public Users GetSingle(Expression<Func<Users, bool>> predicate)
+        public Users GetSingle(int id)
         {
-            throw new NotImplementedException();
+           return _bVK_DB_Context.users.Where(u => u.UserId == id).FirstOrDefault();
+            
+        }
+
+        public void SaveChanges()
+        {
+            _bVK_DB_Context.SaveChanges();
         }
     }
 }

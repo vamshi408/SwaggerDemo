@@ -36,7 +36,9 @@ namespace SwaggerDemo
             services.AddDbContext<EntityDBContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("BVKConnection"));
             });
-            services.AddScoped<IRepository<Users>, SQLDBService>();
+            services.AddScoped<IRepository<Users>, UserRepository>();
+
+            //services.AddScoped<IRepository<Property>, PropertyOracleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

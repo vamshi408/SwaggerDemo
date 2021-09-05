@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SwaggerDemo.Entity;
+using SwaggerDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +13,37 @@ namespace SwaggerDemo.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        private readonly IRepository<Users> usersRepository;
+        public ValuesController(IRepository<Users> usersRepository)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            this.usersRepository = usersRepository;
+        }
+
+
+        [Route("GetAllUsers")]
+        [HttpGet]
+        public IEnumerable<Users> GetAllUsers()
+        {
+            var data = usersRepository.GetAll();
+            return data.Select(s=> new Users()
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                //Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                //UserId=s.UserId,
+                UserName=s.UserName,
+                UserEmailId=s.UserEmailId
+            }).ToList();
+        }
+
+        [Route("GetAllUsers1")]
+        [HttpGet]
+        public IEnumerable<Users> GetAllUsers1()
+        {
+            var data = usersRepository.GetAll();
+            return data.Select(s => new Users()
+            {
+                UserId = s.UserId,
+                UserName = s.UserName,
+                UserEmailId = s.UserEmailId
+            }).ToList();
         }
     }
 }

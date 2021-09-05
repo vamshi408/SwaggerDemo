@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SwaggerDemo.Models
 {
-    public class Users
+   public class Users
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
